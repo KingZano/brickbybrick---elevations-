@@ -207,7 +207,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
-            <p>© {new Date().getFullYear()} BrickByBrick Elevations PTY LTD. All rights reserved. CIPC Registered.</p>
+            <p>© {new Date().getFullYear()} BrickByBrick Elevations PTY LTD. All rights reserved.</p>
+            <p className="mt-1">CIPC Registered: 2026/570477/07</p>
           </div>
         </div>
       </footer>
