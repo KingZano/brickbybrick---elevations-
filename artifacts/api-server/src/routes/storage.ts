@@ -1,46 +1,37 @@
 import { Readable } from 'stream';
-import {
-  RequestUploadUrlBody,
-  RequestUploadUrlResponse,
-} from '@workspace/api-zod';
+import { z } from 'zod';
 import { Router, type IRouter, type Request, type Response } from 'express';
-
-import { ObjectPermission } from '../lib/objectAcl';
 import {
   ObjectNotFoundError,
   ObjectStorageService,
+  objectStorageClient,
 } from '../lib/objectStorage';
 
 const router: IRouter = Router();
 const objectStorageService = new ObjectStorageService();
 
-function hasAuthenticatedSession(
-  req: Request,
-): req is Request & { isAuthenticated: () => boolean } {
-  if (
-    !('isAuthenticated' in req) ||
-    typeof req.isAuthenticated !== 'function'
-  ) {
-    return false;
-  }
+const RequestUploadUrlBody = z.object({
+  name: z.string(),
+  size: z.number(),
+  contentType: z.string(),
+});
 
-  return req.isAuthenticated();
+/** Check X-Admin-Pin header against ADMIN_PIN env var */
+function isAdminAuthorized(req: Request): boolean {
+  const pin = process.env.ADMIN_PIN;
+  if (!pin) return false;
+  return req.headers['x-admin-pin'] === pin;
 }
 
 /**
  * POST /storage/uploads/request-url
- *
- * Request a presigned URL for file upload.
- * The client sends JSON metadata (name, size, contentType) — NOT the file.
- * Then uploads the file directly to the returned presigned URL.
- * Requires auth middleware so public callers cannot mint write-capable URLs.
+ * Request a presigned URL for file upload. Requires admin PIN.
  */
 router.post(
   '/storage/uploads/request-url',
   async (req: Request, res: Response) => {
-    if (!hasAuthenticatedSession(req)) {
+    if (!isAdminAuthorized(req)) {
       res.status(401).json({ error: 'Unauthorized' });
-
       return;
     }
 
@@ -52,18 +43,10 @@ router.post(
 
     try {
       const { name, size, contentType } = parsed.data;
-
       const uploadURL = await objectStorageService.getObjectEntityUploadURL();
-      const objectPath =
-        objectStorageService.normalizeObjectEntityPath(uploadURL);
+      const objectPath = objectStorageService.normalizeObjectEntityPath(uploadURL);
 
-      res.json(
-        RequestUploadUrlResponse.parse({
-          uploadURL,
-          objectPath,
-          metadata: { name, size, contentType },
-        }),
-      );
+      res.json({ uploadURL, objectPath, metadata: { name, size, contentType } });
     } catch (error) {
       req.log.error({ err: error }, 'Error generating upload URL');
       res.status(500).json({ error: 'Failed to generate upload URL' });
@@ -72,11 +55,84 @@ router.post(
 );
 
 /**
+ * GET /storage/gallery
+ * List all uploaded project images (object paths + serving URLs).
+ */
+router.get('/storage/gallery', async (req: Request, res: Response) => {
+  try {
+    const privateObjectDir = objectStorageService.getPrivateObjectDir();
+    // privateObjectDir format: gs://bucket-name/prefix
+    const match = privateObjectDir.match(/^gs:\/\/([^/]+)\/?(.*)/);
+    if (!match) {
+      res.status(500).json({ error: 'Invalid PRIVATE_OBJECT_DIR format' });
+      return;
+    }
+    const bucketName = match[1];
+    const prefix = match[2] ? match[2].replace(/\/?$/, '/') : '';
+
+    const bucket = objectStorageClient.bucket(bucketName);
+    const [files] = await bucket.getFiles({ prefix });
+
+    const images = files
+      .filter((f) => /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name))
+      .map((f) => {
+        const objectName = f.name.replace(prefix, '');
+        return {
+          objectPath: `/objects/${objectName}`,
+          servingUrl: `/api/storage/objects/${objectName}`,
+          name: objectName,
+        };
+      });
+
+    res.json({ images });
+  } catch (error) {
+    req.log.error({ err: error }, 'Error listing gallery');
+    res.status(500).json({ error: 'Failed to list gallery' });
+  }
+});
+
+/**
+ * DELETE /storage/gallery/:objectName
+ * Delete an uploaded image. Requires admin PIN.
+ */
+router.delete(
+  '/storage/gallery/:objectName',
+  async (req: Request, res: Response) => {
+    if (!isAdminAuthorized(req)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    try {
+      const privateObjectDir = objectStorageService.getPrivateObjectDir();
+      const match = privateObjectDir.match(/^gs:\/\/([^/]+)\/?(.*)/);
+      if (!match) {
+        res.status(500).json({ error: 'Invalid PRIVATE_OBJECT_DIR format' });
+        return;
+      }
+      const bucketName = match[1];
+      const prefix = match[2] ? match[2].replace(/\/?$/, '/') : '';
+      const objectName = req.params.objectName;
+
+      const bucket = objectStorageClient.bucket(bucketName);
+      const file = bucket.file(`${prefix}${objectName}`);
+      const [exists] = await file.exists();
+      if (!exists) {
+        res.status(404).json({ error: 'File not found' });
+        return;
+      }
+      await file.delete();
+      res.json({ success: true });
+    } catch (error) {
+      req.log.error({ err: error }, 'Error deleting gallery image');
+      res.status(500).json({ error: 'Failed to delete image' });
+    }
+  },
+);
+
+/**
  * GET /storage/public-objects/*
- *
- * Serve public assets from PUBLIC_OBJECT_SEARCH_PATHS.
- * These are unconditionally public — no authentication or ACL checks.
- * IMPORTANT: Always provide this endpoint when object storage is set up.
+ * Serve public assets from PUBLIC_OBJECT_SEARCH_PATHS (unconditionally public).
  */
 router.get(
   '/storage/public-objects/*filePath',
@@ -89,16 +145,11 @@ router.get(
         res.status(404).json({ error: 'File not found' });
         return;
       }
-
       const response = await objectStorageService.downloadObject(file);
-
       res.status(response.status);
       response.headers.forEach((value, key) => res.setHeader(key, value));
-
       if (response.body) {
-        const nodeStream = Readable.fromWeb(
-          response.body as ReadableStream<Uint8Array>,
-        );
+        const nodeStream = Readable.fromWeb(response.body as ReadableStream<Uint8Array>);
         nodeStream.pipe(res);
       } else {
         res.end();
@@ -112,50 +163,25 @@ router.get(
 
 /**
  * GET /storage/objects/*
- *
- * Serve object entities from PRIVATE_OBJECT_DIR.
- * These are served from a separate path from /public-objects and can optionally
- * be protected with authentication or ACL checks based on the use case.
+ * Serve uploaded object entities (project photos — public, no auth needed to view).
  */
 router.get('/storage/objects/*path', async (req: Request, res: Response) => {
   try {
     const raw = req.params.path;
     const wildcardPath = Array.isArray(raw) ? raw.join('/') : raw;
     const objectPath = `/objects/${wildcardPath}`;
-    const objectFile =
-      await objectStorageService.getObjectEntityFile(objectPath);
-
-    // --- Protected route example (uncomment when using replit-auth) ---
-    // if (!req.isAuthenticated()) {
-    //   res.status(401).json({ error: "Unauthorized" });
-    //   return;
-    // }
-    // const canAccess = await objectStorageService.canAccessObjectEntity({
-    //   userId: req.user.id,
-    //   objectFile,
-    //   requestedPermission: ObjectPermission.READ,
-    // });
-    // if (!canAccess) {
-    //   res.status(403).json({ error: "Forbidden" });
-    //   return;
-    // }
-
+    const objectFile = await objectStorageService.getObjectEntityFile(objectPath);
     const response = await objectStorageService.downloadObject(objectFile);
-
     res.status(response.status);
     response.headers.forEach((value, key) => res.setHeader(key, value));
-
     if (response.body) {
-      const nodeStream = Readable.fromWeb(
-        response.body as ReadableStream<Uint8Array>,
-      );
+      const nodeStream = Readable.fromWeb(response.body as ReadableStream<Uint8Array>);
       nodeStream.pipe(res);
     } else {
       res.end();
     }
   } catch (error) {
     if (error instanceof ObjectNotFoundError) {
-      req.log.warn({ err: error }, 'Object not found');
       res.status(404).json({ error: 'Object not found' });
       return;
     }
