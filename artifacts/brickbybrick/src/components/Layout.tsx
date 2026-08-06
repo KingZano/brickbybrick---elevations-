@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link, useLocation } from 'wouter';
-import { MessageCircle, Menu, X, Phone } from 'lucide-react';
+import { MessageCircle, Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const PHONE_DISPLAY = '074 775 6722';
+const PHONE_HREF = 'tel:+27747756722';
+const WHATSAPP_URL = "https://wa.me/27747756722?text=Hi,%20I'd%20like%20a%20free%20quote";
+const EMAIL = 'brickbybrick.elevations@gmail.com';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const WHATSAPP_URL = "https://wa.me/27000000000?text=Hi,%20I'd%20like%20a%20free%20quote";
 
   const links = [
     { href: '/', label: 'HOME' },
@@ -16,15 +19,35 @@ export function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="min-h-[100dvh] flex flex-col font-sans">
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-50 w-full bg-brand-black/95 backdrop-blur-md border-b-4 border-brand-orange">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="font-display text-3xl font-bold tracking-widest text-white uppercase flex items-center gap-2">
-              <span className="text-brand-orange">BRICK</span>BY<span className="text-brand-orange">BRICK</span>
-            </Link>
+    <div className="min-h-[100dvh] flex flex-col font-sans bg-white">
+      {/* Top Info Bar */}
+      <div className="hidden md:block bg-gray-900 text-gray-300 text-sm py-2 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <a href={PHONE_HREF} className="flex items-center gap-1.5 hover:text-[#F5A200] transition-colors font-medium">
+              <Phone className="w-3.5 h-3.5" />
+              {PHONE_DISPLAY}
+            </a>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-1.5 hover:text-[#F5A200] transition-colors">
+              <Mail className="w-3.5 h-3.5" />
+              {EMAIL}
+            </a>
           </div>
+          <div className="flex items-center gap-1.5 text-gray-400">
+            <MapPin className="w-3.5 h-3.5" />
+            <span>Vereeniging • Vanderbijlpark • Sasolburg & Surrounding Areas</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 w-full bg-white border-b-4 border-[#F5A200] shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <Link href="/" className="flex-shrink-0" style={{ fontFamily: 'Oswald, sans-serif' }}>
+            <span className="text-3xl font-bold tracking-widest uppercase text-gray-900">
+              <span className="text-[#F5A200]">BRICK</span>BY<span className="text-[#F5A200]">BRICK</span>
+            </span>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -32,29 +55,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-display text-lg tracking-wider font-semibold transition-colors hover:text-brand-orange ${
-                  location === link.href ? 'text-brand-orange' : 'text-white'
+                className={`text-base font-bold tracking-wider uppercase transition-colors hover:text-[#F5A200] ${
+                  location === link.href ? 'text-[#F5A200]' : 'text-gray-800'
                 }`}
+                style={{ fontFamily: 'Oswald, sans-serif' }}
               >
                 {link.label}
               </Link>
             ))}
             <a
-              href="tel:+27000000000"
-              className="flex items-center gap-2 bg-transparent border-2 border-white text-white px-4 py-2 hover:bg-white hover:text-black transition-colors font-bold tracking-widest uppercase text-sm"
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded hover:bg-[#20bd5a] transition-colors font-bold tracking-wide uppercase text-sm shadow"
             >
-              <Phone className="w-4 h-4" />
-              000 000 0000
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
             </a>
           </nav>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-3">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#25D366] text-white p-2 rounded"
+            >
+              <MessageCircle className="w-5 h-5" />
+            </a>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:text-brand-orange focus:outline-none"
+              className="text-gray-800 hover:text-[#F5A200] focus:outline-none"
             >
-              {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
+              {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
             </button>
           </div>
         </div>
@@ -67,7 +101,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden bg-brand-gray border-b border-brand-border"
+            className="md:hidden overflow-hidden bg-white border-b-2 border-gray-100 shadow-lg z-40"
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {links.map((link) => (
@@ -75,19 +109,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-4 font-display text-xl tracking-wider font-semibold uppercase ${
-                    location === link.href ? 'text-brand-orange' : 'text-white'
+                  className={`block px-3 py-4 text-xl font-bold tracking-wider uppercase border-b border-gray-100 ${
+                    location === link.href ? 'text-[#F5A200]' : 'text-gray-800'
                   }`}
+                  style={{ fontFamily: 'Oswald, sans-serif' }}
                 >
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="tel:+27000000000"
-                className="block mt-4 text-center bg-brand-orange text-black px-4 py-3 font-bold uppercase tracking-widest"
-              >
-                Call Us Now
-              </a>
+              <div className="pt-2 space-y-3">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 bg-[#25D366] text-white px-4 py-3 font-bold uppercase tracking-widest rounded"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp — {PHONE_DISPLAY}
+                </a>
+                <a
+                  href={PHONE_HREF}
+                  className="flex items-center justify-center gap-2 bg-gray-900 text-white px-4 py-3 font-bold uppercase tracking-widest rounded"
+                >
+                  <Phone className="w-5 h-5" />
+                  Call — {PHONE_DISPLAY}
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
@@ -98,20 +145,69 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-brand-black border-t border-brand-border py-12 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left md:flex justify-between items-center">
+      {/* Full-Width WhatsApp CTA Bar */}
+      <div className="bg-[#25D366] py-8 px-4">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div>
-            <h2 className="font-display text-2xl font-bold tracking-widest text-white uppercase mb-2">
-              <span className="text-brand-orange">BRICK</span>BY<span className="text-brand-orange">BRICK</span>
-            </h2>
-            <p className="text-brand-white/70 text-sm max-w-sm">
-              CIPC Registered building and renovation company serving the Vaal Triangle. We build. We fix. We finish.
+            <p className="text-white font-bold text-2xl" style={{ fontFamily: 'Oswald, sans-serif' }}>
+              Get Your FREE Quote on WhatsApp
             </p>
+            <p className="text-white/90 text-lg font-medium">{PHONE_DISPLAY}</p>
           </div>
-          <div className="mt-8 md:mt-0 space-y-2 text-sm text-brand-white/70">
-            <p>Vereeniging • Vanderbijlpark • Sasolburg</p>
-            <p>© {new Date().getFullYear()} BrickByBrick Elevations PTY LTD. All rights reserved.</p>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-white text-[#25D366] font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-gray-100 transition-colors shadow-lg text-lg whitespace-nowrap"
+            style={{ fontFamily: 'Oswald, sans-serif' }}
+          >
+            <MessageCircle className="w-6 h-6" />
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h2 className="text-2xl font-bold tracking-widest text-white uppercase mb-3" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                <span className="text-[#F5A200]">BRICK</span>BY<span className="text-[#F5A200]">BRICK</span>
+              </h2>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                CIPC Registered building and renovation company. We build. We fix. We finish.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-white font-bold uppercase tracking-wider mb-3 text-sm" style={{ fontFamily: 'Oswald, sans-serif' }}>Areas We Serve</h3>
+              <ul className="text-gray-400 text-sm space-y-1">
+                <li>Vereeniging</li>
+                <li>Vanderbijlpark</li>
+                <li>Sasolburg</li>
+                <li>Meyerton</li>
+                <li>Three Rivers</li>
+                <li>Surrounding Areas</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold uppercase tracking-wider mb-3 text-sm" style={{ fontFamily: 'Oswald, sans-serif' }}>Contact</h3>
+              <ul className="text-gray-400 text-sm space-y-2">
+                <li>
+                  <a href={PHONE_HREF} className="hover:text-[#F5A200] transition-colors flex items-center gap-2">
+                    <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${EMAIL}`} className="hover:text-[#F5A200] transition-colors flex items-center gap-2 break-all">
+                    <Mail className="w-4 h-4" /> {EMAIL}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+            <p>© {new Date().getFullYear()} BrickByBrick Elevations PTY LTD. All rights reserved. CIPC Registered.</p>
           </div>
         </div>
       </footer>
@@ -121,13 +217,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.5)] hover:bg-[#20bd5a] hover:scale-110 transition-all duration-200 group flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white shadow-2xl hover:bg-[#20bd5a] hover:scale-105 transition-all duration-200 group flex items-center gap-3 px-4 py-3 rounded-full"
         aria-label="Contact us on WhatsApp"
       >
-        <MessageCircle className="w-8 h-8" />
-        <span className="absolute right-full mr-4 bg-black text-white px-3 py-1 rounded font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none uppercase tracking-wide">
-          Free Quote
-        </span>
+        <MessageCircle className="w-6 h-6 flex-shrink-0" />
+        <div className="flex flex-col leading-tight">
+          <span className="text-xs font-bold uppercase tracking-wide">WhatsApp Us</span>
+          <span className="text-sm font-bold">{PHONE_DISPLAY}</span>
+        </div>
       </a>
     </div>
   );

@@ -1,0 +1,89 @@
+You're absolutely right, and that's actually one of the most important parts of the website.
+
+Your client said the **goal is to get WhatsApp leads**, so the number **074 775 6722** should appear throughout the site—not just once.
+
+Here's how I'd place it:
+
+### 📱 Home Page
+
+* Top bar:
+
+  * 📞 **074 775 6722**
+  * ✉️ [brickbybrick.elevations@gmail.com](mailto:brickbybrick.elevations@gmail.com)
+  * 📍 Vereeniging, Vanderbijlpark, Sasolburg & Surrounding Areas
+
+* Hero section:
+
+  * Large green button:
+    **💬 Get FREE Quote on WhatsApp**
+    **074 775 6722**
+
+* Sticky floating WhatsApp button (visible on every page):
+
+  > **💬 WhatsApp Us**
+  > **074 775 6722**
+
+---
+
+### 🖼️ Gallery Page
+
+At the top:
+
+> **Like what you see?**
+>
+> **Get a FREE Quote on WhatsApp**
+>
+> **📱 074 775 6722**
+
+And again at the bottom after the gallery.
+
+---
+
+### 📞 Contact Page
+
+This page should make it impossible to miss.
+
+**Call Us**
+
+* 📞 **074 775 6722**
+
+**WhatsApp Us**
+
+* 💬 **074 775 6722**
+
+**Email**
+
+* ✉️ [brickbybrick.elevations@gmail.com](mailto:brickbybrick.elevations@gmail.com)
+
+**Areas We Serve**
+
+* Vereeniging
+* Vanderbijlpark
+* Sasolburg
+* Meyerton
+* Three Rivers
+* Surrounding Areas
+
+---
+
+### Every "Get Quote" button
+
+Every button should open WhatsApp directly using this link:
+
+```
+https://wa.me/27747756722
+```
+
+So when someone taps it, WhatsApp opens immediately with BrickByBrick.
+
+## I also have another idea.
+
+Since most visitors will come from WhatsApp, I want the very bottom of every page to have a large, full-width green button that says:
+
+> **💬 Get Your FREE Quote on WhatsApp**
+>
+> **074 775 6722**
+
+That way, even if someone scrolls all the way through the website, the last thing they see is a clear way to contact the business.
+
+I also noticed that your client has given us a very detailed brief, which is actually helpful. We can build the website to match his expectations exactly, rather than asking him to imagine a design. I think if we follow his structure closely, use his real photos, his logo, and make WhatsApp the main call to action, he'll be much happier with this version.

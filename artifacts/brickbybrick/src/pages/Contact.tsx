@@ -1,103 +1,89 @@
 import React, { useState } from 'react';
 import { Layout } from '@/components/Layout';
-import { Phone, Mail, MessageCircle, Send } from 'lucide-react';
+import { Phone, Mail, MessageCircle, Send, MapPin } from 'lucide-react';
+
+const PHONE_DISPLAY = '074 775 6722';
+const PHONE_HREF = 'tel:+27747756722';
+const WHATSAPP_URL = "https://wa.me/27747756722?text=Hi,%20I'd%20like%20a%20free%20quote";
+const EMAIL = 'brickbybrick.elevations@gmail.com';
+
+const AREAS = ['Vereeniging', 'Vanderbijlpark', 'Sasolburg', 'Meyerton', 'Three Rivers', 'Surrounding Areas'];
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    message: ''
-  });
-
-  const WHATSAPP_NUMBER = "27000000000"; // Replace with real number
-  const WHATSAPP_URL_BASE = `https://wa.me/${WHATSAPP_NUMBER}`;
-  const CALL_URL = `tel:+${WHATSAPP_NUMBER}`;
-  const EMAIL_URL = "mailto:info@brickbybrick.co.za";
+  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Construct WhatsApp message text
-    const text = `*New Quote Request*%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Needs:* ${formData.message}`;
-    
-    // Open WhatsApp with prefilled message
-    window.open(`${WHATSAPP_URL_BASE}?text=${text}`, '_blank');
+    const text = `*New Quote Request from BrickByBrick Website*%0A%0A*Name:* ${encodeURIComponent(formData.name)}%0A*Phone:* ${encodeURIComponent(formData.phone)}%0A%0A*What they need:*%0A${encodeURIComponent(formData.message)}`;
+    window.open(`https://wa.me/27747756722?text=${text}`, '_blank');
   };
 
   return (
     <Layout>
-      <div className="min-h-screen bg-brand-black pb-24">
+      <div className="min-h-screen bg-gray-50 pb-24">
         {/* Header */}
-        <div className="bg-brand-gray border-b border-brand-border py-16 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white border-b border-gray-200 py-14 px-4 sm:px-6 lg:px-8 shadow-sm">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase text-white mb-6">
+            <h1 className="text-5xl md:text-7xl font-black uppercase text-gray-900 mb-4" style={{ fontFamily: 'Oswald, sans-serif' }}>
               Let's Build Together
             </h1>
-            <div className="w-24 h-2 bg-brand-orange mx-auto mb-8"></div>
-            <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto font-medium">
-              Ready to start your next project? Get in touch for a free, no-obligation written quote.
+            <div className="w-20 h-1.5 bg-[#F5A200] mx-auto mb-6 rounded" />
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-medium">
+              Ready to start? Get in touch for a free, no-obligation written quote.
             </p>
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-          {/* Action Buttons Row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+          {/* Three Contact Action Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
             <a
-              href={`${WHATSAPP_URL_BASE}?text=Hi,%20I'd%20like%20a%20free%20quote`}
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-8 bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors border-2 border-[#25D366] hover:border-white group"
+              className="flex flex-col items-center justify-center p-8 bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors rounded-xl group shadow-lg"
             >
-              <MessageCircle className="w-12 h-12 mb-4 group-hover:scale-110 transition-transform" />
-              <span className="font-display text-2xl font-bold uppercase tracking-wider">WhatsApp</span>
-              <span className="mt-2 opacity-90 text-sm font-medium tracking-widest uppercase">Fastest Response</span>
+              <MessageCircle className="w-12 h-12 mb-3 group-hover:scale-110 transition-transform" />
+              <span className="text-2xl font-bold uppercase tracking-wider mb-1" style={{ fontFamily: 'Oswald, sans-serif' }}>WhatsApp</span>
+              <span className="text-white/90 font-bold text-lg">{PHONE_DISPLAY}</span>
+              <span className="mt-1 text-white/70 text-xs uppercase tracking-widest">Fastest Response</span>
             </a>
 
             <a
-              href={CALL_URL}
-              className="flex flex-col items-center justify-center p-8 bg-brand-gray border border-brand-border hover:border-brand-orange text-white hover:text-brand-orange transition-colors group"
+              href={PHONE_HREF}
+              className="flex flex-col items-center justify-center p-8 bg-white border-2 border-gray-200 hover:border-[#F5A200] text-gray-800 transition-colors rounded-xl group shadow-sm"
             >
-              <Phone className="w-12 h-12 mb-4 group-hover:scale-110 transition-transform" />
-              <span className="font-display text-2xl font-bold uppercase tracking-wider">Call Us</span>
-              <span className="mt-2 text-white/50 text-sm font-medium tracking-widest uppercase">000 000 0000</span>
+              <Phone className="w-12 h-12 mb-3 text-[#F5A200] group-hover:scale-110 transition-transform" />
+              <span className="text-2xl font-bold uppercase tracking-wider text-gray-900 mb-1" style={{ fontFamily: 'Oswald, sans-serif' }}>Call Us</span>
+              <span className="text-[#F5A200] font-bold text-lg">{PHONE_DISPLAY}</span>
             </a>
 
             <a
-              href={EMAIL_URL}
-              className="flex flex-col items-center justify-center p-8 bg-brand-gray border border-brand-border hover:border-white text-white transition-colors group"
+              href={`mailto:${EMAIL}`}
+              className="flex flex-col items-center justify-center p-8 bg-white border-2 border-gray-200 hover:border-[#F5A200] text-gray-800 transition-colors rounded-xl group shadow-sm"
             >
-              <Mail className="w-12 h-12 mb-4 group-hover:scale-110 transition-transform" />
-              <span className="font-display text-2xl font-bold uppercase tracking-wider">Email Us</span>
-              <span className="mt-2 text-white/50 text-sm font-medium tracking-widest uppercase">info@brickbybrick.co.za</span>
+              <Mail className="w-12 h-12 mb-3 text-[#F5A200] group-hover:scale-110 transition-transform" />
+              <span className="text-2xl font-bold uppercase tracking-wider text-gray-900 mb-1" style={{ fontFamily: 'Oswald, sans-serif' }}>Email Us</span>
+              <span className="text-gray-500 text-sm text-center break-all">{EMAIL}</span>
             </a>
           </div>
 
-          {/* Form Section */}
-          <div className="bg-brand-gray border border-brand-border p-8 sm:p-12 shadow-2xl relative">
-            {/* Accents */}
-            <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-brand-orange pointer-events-none"></div>
-            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-brand-orange pointer-events-none"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Quote Form */}
+            <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl p-8 sm:p-10 shadow-sm">
+              <h2 className="text-3xl font-black uppercase text-gray-900 mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                Request a Free Quote
+              </h2>
+              <div className="w-14 h-1 bg-[#F5A200] mb-8 rounded" />
 
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase text-white mb-4">
-                  Request a Free Quote
-                </h2>
-                <p className="text-white/60">Fill out the details below and we'll reply on WhatsApp.</p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="block text-sm font-bold uppercase tracking-widest text-brand-orange">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-bold uppercase tracking-widest text-[#F5A200] mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
                       Full Name
                     </label>
                     <input
@@ -107,12 +93,12 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-brand-black border-2 border-brand-border px-4 py-4 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                      className="w-full bg-gray-50 border-2 border-gray-200 focus:border-[#F5A200] px-4 py-3 text-gray-900 rounded outline-none transition-colors"
                       placeholder="John Doe"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="phone" className="block text-sm font-bold uppercase tracking-widest text-brand-orange">
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-bold uppercase tracking-widest text-[#F5A200] mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
                       Phone Number
                     </label>
                     <input
@@ -122,14 +108,14 @@ export default function Contact() {
                       required
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full bg-brand-black border-2 border-brand-border px-4 py-4 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                      className="w-full bg-gray-50 border-2 border-gray-200 focus:border-[#F5A200] px-4 py-3 text-gray-900 rounded outline-none transition-colors"
                       placeholder="082 123 4567"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="block text-sm font-bold uppercase tracking-widest text-brand-orange">
+                <div>
+                  <label htmlFor="message" className="block text-sm font-bold uppercase tracking-widest text-[#F5A200] mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
                     What do you need?
                   </label>
                   <textarea
@@ -139,39 +125,67 @@ export default function Contact() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-brand-black border-2 border-brand-border px-4 py-4 text-white focus:outline-none focus:border-brand-orange transition-colors resize-none"
+                    className="w-full bg-gray-50 border-2 border-gray-200 focus:border-[#F5A200] px-4 py-3 text-gray-900 rounded outline-none transition-colors resize-none"
                     placeholder="Describe your project (e.g. I need my kitchen floor retiled...)"
-                  ></textarea>
+                  />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="block text-sm font-bold uppercase tracking-widest text-white/50">
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-widest text-gray-400 mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
                     Upload Photo (Optional)
                   </label>
-                  <div className="border-2 border-dashed border-brand-border bg-brand-black/50 p-6 text-center cursor-pointer hover:border-brand-orange transition-colors">
-                    <input
-                      type="file"
-                      id="photo"
-                      className="hidden"
-                      accept="image/*"
-                    />
-                    <label htmlFor="photo" className="cursor-pointer text-white/60 text-sm">
+                  <div className="border-2 border-dashed border-gray-200 bg-gray-50 p-5 text-center rounded hover:border-[#F5A200] transition-colors">
+                    <input type="file" id="photo" className="hidden" accept="image/*" />
+                    <label htmlFor="photo" className="cursor-pointer text-gray-400 text-sm">
                       Click to attach a photo of the space
                     </label>
                   </div>
-                  <p className="text-xs text-white/40 mt-1">
-                    Note: Since this sends to WhatsApp, you can also attach photos directly in the chat.
-                  </p>
+                  <p className="text-xs text-gray-400 mt-1">You can also attach photos directly in WhatsApp after submitting.</p>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-brand-orange text-black py-6 px-8 font-display text-2xl font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-3 mt-8 shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+                  className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white py-5 px-8 text-xl font-bold uppercase tracking-widest hover:bg-[#20bd5a] transition-colors rounded shadow-lg mt-2"
+                  style={{ fontFamily: 'Oswald, sans-serif' }}
                 >
-                  <Send className="w-6 h-6" />
+                  <Send className="w-5 h-5" />
                   Send My Quote Request
                 </button>
               </form>
+            </div>
+
+            {/* Areas We Serve sidebar */}
+            <div className="space-y-5">
+              <div className="bg-white border border-gray-200 rounded-xl p-7 shadow-sm">
+                <div className="flex items-center gap-2 mb-4">
+                  <MapPin className="w-5 h-5 text-[#F5A200]" />
+                  <h3 className="font-bold uppercase tracking-wider text-gray-900" style={{ fontFamily: 'Oswald, sans-serif' }}>Areas We Serve</h3>
+                </div>
+                <ul className="space-y-2">
+                  {AREAS.map((area) => (
+                    <li key={area} className="flex items-center gap-2 text-gray-600 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#F5A200] flex-shrink-0" />
+                      {area}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-gray-900 rounded-xl p-7 text-center">
+                <p className="text-[#F5A200] font-bold uppercase tracking-wide text-sm mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                  Fastest way to reach us
+                </p>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold uppercase tracking-widest px-5 py-4 rounded hover:bg-[#20bd5a] transition-colors w-full"
+                  style={{ fontFamily: 'Oswald, sans-serif' }}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp {PHONE_DISPLAY}
+                </a>
+              </div>
             </div>
           </div>
         </div>
