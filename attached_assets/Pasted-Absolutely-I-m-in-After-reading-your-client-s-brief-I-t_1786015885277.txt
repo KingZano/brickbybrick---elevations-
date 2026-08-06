@@ -1,0 +1,269 @@
+Absolutely! I'm in. 💪
+
+After reading your client's brief, I think we should **forget the first website completely** and build **Version 2** exactly the way he wants it.
+
+This won't just make him happy—it will also teach you how to build websites around a client's goals instead of your own design preferences.
+
+# Project Plan
+
+## 📱 Page 1 – Home
+
+The homepage should answer three questions in the first 5 seconds:
+
+1. Who are you?
+2. What do you do?
+3. How do I contact you?
+
+### Hero Section
+
+```
+BRICKBYBRICK
+BUILDING & RENOVATION SERVICES
+
+We Build. We Fix. We Finish.
+
+✔ CIPC Registered
+✔ Registered & Insured
+✔ Free Written Quotes
+
+[Get FREE Quote on WhatsApp]
+[View Our Work]
+```
+
+Immediately underneath we'll place **3 of his best project photos**.
+
+---
+
+### About
+
+**Your Trusted Local Builders**
+
+BrickByBrick Elevations PTY LTD is a CIPC Registered and insured building company serving Vereeniging, Vanderbijlpark, Sasolburg and surrounding areas.
+
+We build homes, renovate properties and complete projects with quality workmanship from start to finish.
+
+---
+
+### Services
+
+Six large cards
+
+🧱 New Builds
+
+🎨 Painting
+
+⬜ Tiling
+
+🚿 Plumbing
+
+🏠 Roofing
+
+🪵 PVC Ceilings
+
+---
+
+### Why Choose Us
+
+Three cards exactly like he requested
+
+✅ Written Quotes
+
+✅ We Finish What We Start
+
+✅ Registered & Insured
+
+---
+
+### Promo Banner
+
+Orange background
+
+## FREE QUOTE
+
+### 10% OFF YOUR FIRST JOB
+
+Use Code
+
+# BRICK10
+
+---
+
+## 📸 Page 2
+
+This page will be almost entirely photos.
+
+We'll organise them like this:
+
+```
+NEW BUILDS
+
+Photo
+Photo
+Photo
+Photo
+
+-----------------
+
+TILING
+
+Photo
+Photo
+Photo
+Photo
+
+-----------------
+
+PAINTING
+
+Photo
+Photo
+Photo
+
+-----------------
+
+ROOFING
+
+Photo
+Photo
+
+-----------------
+
+PLUMBING
+
+Photo
+Photo
+
+-----------------
+
+PVC CEILINGS
+
+Photo
+Photo
+Photo
+```
+
+Exactly what he asked for.
+
+No slider.
+
+No carousel.
+
+Just scroll.
+
+---
+
+## 📞 Contact Page
+
+Large heading
+
+# Let's Build Together
+
+Buttons
+
+🟢 WhatsApp
+
+📞 Call
+
+✉ Email
+
+Simple quote form
+
+Name
+
+Phone Number
+
+What do you need?
+
+Upload Photo
+
+---
+
+# Colours
+
+Exactly like his flyer
+
+🟧 Orange
+
+⚫ Black
+
+⚪ White
+
+Nothing fancy.
+
+---
+
+# Navigation
+
+HOME
+
+OUR WORK
+
+CONTACT
+
+That's it.
+
+---
+
+# Floating Button
+
+A green WhatsApp button fixed to the bottom-right of the screen on every page.
+
+---
+
+# Even Better Idea
+
+I noticed something in the 61 photos.
+
+Instead of just writing
+
+> Tiling
+
+we can create cards like
+
+```
+Kitchen Floor Tiling
+
+VIEW PROJECT
+```
+
+Click...
+
+Gallery opens
+
+Shows all kitchen photos.
+
+Same for
+
+Bathroom
+
+Roof
+
+Painting
+
+Boundary Wall
+
+House Extension
+
+That feels much more professional while staying simple and fast.
+
+---
+
+# I think this website will impress him
+
+This version isn't trying to look like a national construction company.
+
+It's trying to look like **the most trustworthy local builder in the Vaal Triangle.**
+
+And that's exactly what his brief asks for.
+
+## Here's how we'll work
+
+Rather than trying to squeeze hundreds of lines of code into chat (which is difficult to manage), we'll build it step by step:
+
+1. **Homepage (`index.html`)** – complete.
+2. **Gallery (`gallery.html`)** – organized using his project photos.
+3. **Contact page (`contact.html`)**.
+4. **Shared `style.css`** with the black, orange, and white theme.
+5. **`script.js`** for the mobile menu and interactions.
+
+By the end, you'll have a clean project folder that you can drop straight into Replit and publish. I can guide you through each file until the site is complete.

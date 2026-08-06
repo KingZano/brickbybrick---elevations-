@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "BrickByBrick Building & Renovation"
+description = "A multi-page marketing website for BrickByBrick Elevations PTY LTD, a CIPC-registered building and renovation company in the Vaal Triangle, South Africa. Features a homepage with hero, services, and promo sections; a gallery page with project category cards and photo lightboxes; and a contact page with WhatsApp, call, and email buttons plus a quote form. Colors: orange, black, white. Floating WhatsApp button on all pages."
+version = "1.0.0"
+id = "artifacts/brickbybrick"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20718
+
+[services.development]
+run = "pnpm --filter @workspace/brickbybrick run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/brickbybrick", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/brickbybrick/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20718"
+BASE_PATH = "/"
