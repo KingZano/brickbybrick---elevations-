@@ -40,8 +40,13 @@ const CATEGORIES: { name: string; photos: string[] }[] = [
     ].map(img),
   },
   {
-    name: 'New House Builds & Extensions',
-    photos: [],
+    name: 'Geyser & Hot Water Pipe Repair',
+    photos: [
+      'IMG-20260806-WA0327.jpg',
+      'IMG-20260806-WA0331.jpg',
+      'IMG-20260806-WA0335.jpg',
+      'IMG-20260806-WA0341.jpg',
+    ].map(img),
   },
   {
     name: 'Floor Tiling',
