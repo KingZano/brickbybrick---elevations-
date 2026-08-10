@@ -61,6 +61,17 @@ const CATEGORIES: { name: string; photos: string[] }[] = [
       'mo.jpg',
     ].map(img),
   },
+  {
+    name: 'New Builds & Construction',
+    photos: [
+      'IMG-20260806-WA0352.jpg',
+      'IMG-20260806-WA0353.jpg',
+      'IMG-20260806-WA0354.jpg',
+      'IMG-20260806-WA0355.jpg',
+      'IMG-20260806-WA0356.jpg',
+      'IMG-20260806-WA0357.jpg',
+    ].map(img),
+  },
 ];
 
 export default function OurWork() {
