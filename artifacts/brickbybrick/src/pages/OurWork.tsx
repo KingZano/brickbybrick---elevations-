@@ -15,46 +15,19 @@ function img(name: string) {
 const CATEGORIES: { name: string; photos: string[] }[] = [
   {
     name: 'Security Gates & Burglar Bars',
-    photos: [
-      'IMG-20260806-WA0320.jpg', 'IMG-20260806-WA0321.jpg', 'IMG-20260806-WA0322.jpg',
-      'IMG-20260806-WA0323.jpg', 'IMG-20260806-WA0324.jpg', 'IMG-20260806-WA0325.jpg',
-      'IMG-20260806-WA0326.jpg', 'IMG-20260806-WA0327.jpg', 'IMG-20260806-WA0328.jpg',
-      'IMG-20260806-WA0329.jpg', 'IMG-20260806-WA0330.jpg', 'IMG-20260806-WA0331.jpg',
-      'IMG-20260806-WA0332.jpg', 'IMG-20260806-WA0333.jpg', 'IMG-20260806-WA0334.jpg',
-      'IMG-20260806-WA0335.jpg', 'IMG-20260806-WA0336.jpg', 'IMG-20260806-WA0337.jpg',
-      'IMG-20260806-WA0338.jpg', 'IMG-20260806-WA0339.jpg', 'IMG-20260806-WA0340.jpg',
-      'IMG-20260806-WA0341.jpg', 'IMG-20260806-WA0342.jpg', 'IMG-20260806-WA0343.jpg',
-      'IMG-20260806-WA0344.jpg',
-    ].map(img),
+    photos: [],
   },
   {
     name: 'PVC Ceilings & Ceiling Repairs',
-    photos: [
-      'IMG-20260806-WA0345.jpg', 'IMG-20260806-WA0346.jpg', 'IMG-20260806-WA0347.jpg',
-      'IMG-20260806-WA0348.jpg', 'IMG-20260806-WA0349.jpg', 'IMG-20260806-WA0350.jpg',
-      'IMG-20260806-WA0351.jpg', 'IMG-20260806-WA0352.jpg', 'IMG-20260806-WA0353.jpg',
-      'IMG-20260806-WA0354.jpg',
-    ].map(img),
+    photos: [],
   },
   {
     name: 'New House Builds & Extensions',
-    photos: [
-      'IMG-20260806-WA0355.jpg', 'IMG-20260806-WA0356.jpg',
-      'IMG-20260806-WA0357.jpg', 'IMG-20260806-WA0358.jpg',
-    ].map(img),
+    photos: [],
   },
   {
     name: 'Floor Tiling',
-    photos: [
-      'IMG-20260806-WA0361.jpg', 'IMG-20260806-WA0362.jpg', 'IMG-20260806-WA0363.jpg',
-      'IMG-20260806-WA0364.jpg', 'IMG-20260806-WA0365.jpg', 'IMG-20260806-WA0366.jpg',
-      'IMG-20260806-WA0367.jpg', 'IMG-20260806-WA0368.jpg', 'IMG-20260806-WA0369.jpg',
-      'IMG-20260806-WA0370.jpg', 'IMG-20260806-WA0371.jpg', 'IMG-20260806-WA0372.jpg',
-      'IMG-20260806-WA0373.jpg', 'IMG-20260806-WA0374.jpg', 'IMG-20260806-WA0375.jpg',
-      'IMG-20260806-WA0376.jpg', 'IMG-20260806-WA0377.jpg', 'IMG-20260806-WA0378.jpg',
-      'IMG-20260806-WA0379.jpg', 'IMG-20260806-WA0380.jpg', 'IMG-20260806-WA0383.jpg',
-      'IMG-20260806-WA0384.jpg', 'IMG-20260806-WA0385.jpg',
-    ].map(img),
+    photos: [],
   },
 ];
 
