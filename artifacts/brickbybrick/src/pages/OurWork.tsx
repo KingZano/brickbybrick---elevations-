@@ -49,8 +49,17 @@ const CATEGORIES: { name: string; photos: string[] }[] = [
     ].map(img),
   },
   {
-    name: 'Floor Tiling',
-    photos: [],
+    name: 'PVC & Rhino-board Ceilings',
+    photos: [
+      'IMG-20260806-WA0342.jpg',
+      'IMG-20260806-WA0344.jpg',
+      'IMG-20260806-WA0345.jpg',
+      'IMG-20260806-WA0348.jpg',
+      'IMG-20260806-WA0349.jpg',
+      'IMG-20260806-WA0350.jpg',
+      'IMG-20260806-WA0351.jpg',
+      'mo.jpg',
+    ].map(img),
   },
 ];
 
