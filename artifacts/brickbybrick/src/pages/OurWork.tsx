@@ -72,6 +72,24 @@ const CATEGORIES: { name: string; photos: string[] }[] = [
       'IMG-20260806-WA0357.jpg',
     ].map(img),
   },
+  {
+    name: 'Floor Tiling',
+    photos: [
+      'IMG-20260806-WA0361.jpg',
+      'IMG-20260806-WA0362.jpg',
+      'IMG-20260806-WA0363.jpg',
+      'IMG-20260806-WA0364.jpg',
+      'IMG-20260806-WA0365.jpg',
+      'IMG-20260806-WA0366.jpg',
+      'IMG-20260806-WA0373.jpg',
+      'IMG-20260806-WA0374.jpg',
+      'IMG-20260806-WA0375.jpg',
+      'IMG-20260806-WA0376.jpg',
+      'IMG-20260806-WA0377.jpg',
+      'IMG-20260806-WA0378.jpg',
+      'IMG-20260806-WA0379.jpg',
+    ].map(img),
+  },
 ];
 
 export default function OurWork() {
