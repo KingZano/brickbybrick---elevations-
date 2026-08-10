@@ -90,6 +90,14 @@ const CATEGORIES: { name: string; photos: string[] }[] = [
       'IMG-20260806-WA0379.jpg',
     ].map(img),
   },
+  {
+    name: 'Partition Walls',
+    photos: [
+      'IMG-20260806-WA0383.jpg',
+      'IMG-20260806-WA0384.jpg',
+      'IMG-20260806-WA0385.jpg',
+    ].map(img),
+  },
 ];
 
 export default function OurWork() {
