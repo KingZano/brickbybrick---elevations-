@@ -67,14 +67,17 @@ export default function Home() {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="flex flex-wrap justify-center gap-3 md:gap-6 mb-10"
           >
-            {[
-              { text: 'CIPC Registered', icon: ShieldCheck },
+              {[
+              { text: 'CIPC Registered', detail: '2026/570477/07', icon: ShieldCheck },
               { text: 'Registered & Insured', icon: BadgeCheck },
               { text: 'Free Written Quotes', icon: FileText },
             ].map((badge, i) => (
               <div key={i} className="flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-2 rounded">
                 <badge.icon className="w-5 h-5 text-[#F5A200]" />
-                <span className="font-bold text-sm tracking-wider uppercase text-white" style={{ fontFamily: 'Oswald, sans-serif' }}>{badge.text}</span>
+                <span className="font-bold text-sm tracking-wider uppercase text-white leading-tight" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                  {badge.text}
+                  {badge.detail && <small className="block text-[#F5A200] text-[0.65rem] tracking-widest">{badge.detail}</small>}
+                </span>
               </div>
             ))}
           </motion.div>
