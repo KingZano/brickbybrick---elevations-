@@ -1,0 +1,76 @@
+Perfect — since you're building in Replit, this spreadsheet will double as your **content plan** and later become the actual data you feed into Firestore (matches the schema we'll use for the admin panel). Let's set it up properly.
+
+## 📋 Photo Tracking Spreadsheet
+
+Create this in Google Sheets or Excel. Here's the column structure:
+
+| Column | Purpose | Example |
+|---|---|---|
+| **#** | Order number | 1 |
+| **Category** | Must match your website menu exactly | Tiling |
+| **Filename** | The renamed file | tiling_bathroom_job1_01.jpg |
+| **Caption** | What shows under the photo on site | "Full bathroom tile renovation - Randburg" |
+| **Featured** | Y/N — shows on homepage | Y |
+| **Before/After** | If applicable | Before |
+| **Job/Client Ref** | Internal note, not shown publicly | Job #12 - Smith |
+| **Uploaded** | Track progress while you build | ☐ / ✅ |
+| **Notes** | Anything odd (blurry, needs cropping, etc) | Crop left edge |
+
+---
+
+## Example filled rows
+
+| # | Category | Filename | Caption | Featured | Before/After | Job Ref | Uploaded | Notes |
+|---|---|---|---|---|---|---|---|---|
+| 1 | New Builds | newbuild_house1_01.jpg | "2 bedroom house build - foundation stage" | N | Before | Job #4 | ☐ | — |
+| 2 | New Builds | newbuild_house1_02.jpg | "2 bedroom house - completed" | Y | After | Job #4 | ☐ | — |
+| 3 | Roofing | roofing_smith_01.jpg | "IBR roof sheeting installation" | Y | — | Job #7 | ☐ | Slightly dark, brighten |
+| 4 | Tiling | tiling_bathroom_01.jpg | "Bathroom floor & wall tiling" | N | — | Job #12 | ☐ | — |
+
+---
+
+## Copy-paste ready blank CSV (paste into Google Sheets)
+
+```
+#,Category,Filename,Caption,Featured,Before/After,Job Ref,Uploaded,Notes
+1,,,,,,,,
+2,,,,,,,,
+3,,,,,,,,
+4,,,,,,,,
+5,,,,,,,,
+```
+Just extend the row numbers as you go.
+
+---
+
+## Why this matters for your Replit build
+
+This sheet maps **directly** to the Firestore `photos` collection structure, so when you get to the admin panel/upload feature, each row = one document:
+
+```js
+{
+  category: "Tiling",
+  filename: "tiling_bathroom_01.jpg",
+  caption: "Bathroom floor & wall tiling",
+  featured: false,
+  beforeAfter: null,
+  imageUrl: "" // filled in once uploaded to Firebase Storage
+}
+```
+
+So really, you're doing two jobs at once:
+1. Sorting/renaming photos on your computer
+2. Pre-writing captions & metadata so uploading later is just "browse → pick photo → paste caption → save" — no thinking required mid-upload.
+
+---
+
+## Suggested workflow now
+
+1. Finish sorting into folders (from before)
+2. Fill in the spreadsheet row by row **as you go through each folder**
+3. Once your Replit gallery/admin upload feature is working, use the sheet like a checklist — upload photo, tick "Uploaded" column, paste caption/category from the sheet
+4. Featured column tells you exactly which ~6-8 photos to mark as "Featured" on the homepage
+
+---
+
+Want me to now help you build the **Firestore schema + Replit file structure** for the gallery/admin so it's ready to receive this data once your photos are sorted? Or do you want to finish the photo sorting first and circle back?
