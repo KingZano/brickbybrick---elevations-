@@ -15,7 +15,19 @@ function img(name: string) {
 const CATEGORIES: { name: string; photos: string[] }[] = [
   {
     name: 'Security Gates & Burglar Bars',
-    photos: [],
+    photos: [
+      'IMG-20260806-WA0320.jpg',
+      'IMG-20260806-WA0321.jpg',
+      'IMG-20260806-WA0322.jpg',
+      'IMG-20260806-WA0324.jpg',
+      'IMG-20260806-WA0326.jpg',
+      'IMG-20260806-WA0328.jpg',
+      'IMG-20260806-WA0330.jpg',
+      'IMG-20260806-WA0332.jpg',
+      'IMG-20260806-WA0334.jpg',
+      'IMG-20260806-WA0337.jpg',
+      'IMG-20260806-WA0338.jpg',
+    ].map(img),
   },
   {
     name: 'PVC Ceilings & Ceiling Repairs',
