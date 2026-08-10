@@ -6,28 +6,60 @@ import { motion } from 'framer-motion';
 
 const PHONE_DISPLAY = '074 775 6722';
 const WHATSAPP_URL = "https://wa.me/27747756722?text=Hi,%20I'd%20like%20a%20free%20quote";
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function img(name: string) {
+  return `${BASE}/images/${name}`;
+}
+
+const CATEGORIES: { name: string; photos: string[] }[] = [
+  {
+    name: 'Security Gates & Burglar Bars',
+    photos: [
+      'IMG-20260806-WA0320.jpg', 'IMG-20260806-WA0321.jpg', 'IMG-20260806-WA0322.jpg',
+      'IMG-20260806-WA0323.jpg', 'IMG-20260806-WA0324.jpg', 'IMG-20260806-WA0325.jpg',
+      'IMG-20260806-WA0326.jpg', 'IMG-20260806-WA0327.jpg', 'IMG-20260806-WA0328.jpg',
+      'IMG-20260806-WA0329.jpg', 'IMG-20260806-WA0330.jpg', 'IMG-20260806-WA0331.jpg',
+      'IMG-20260806-WA0332.jpg', 'IMG-20260806-WA0333.jpg', 'IMG-20260806-WA0334.jpg',
+      'IMG-20260806-WA0335.jpg', 'IMG-20260806-WA0336.jpg', 'IMG-20260806-WA0337.jpg',
+      'IMG-20260806-WA0338.jpg', 'IMG-20260806-WA0339.jpg', 'IMG-20260806-WA0340.jpg',
+      'IMG-20260806-WA0341.jpg', 'IMG-20260806-WA0342.jpg', 'IMG-20260806-WA0343.jpg',
+      'IMG-20260806-WA0344.jpg',
+    ].map(img),
+  },
+  {
+    name: 'PVC Ceilings & Ceiling Repairs',
+    photos: [
+      'IMG-20260806-WA0345.jpg', 'IMG-20260806-WA0346.jpg', 'IMG-20260806-WA0347.jpg',
+      'IMG-20260806-WA0348.jpg', 'IMG-20260806-WA0349.jpg', 'IMG-20260806-WA0350.jpg',
+      'IMG-20260806-WA0351.jpg', 'IMG-20260806-WA0352.jpg', 'IMG-20260806-WA0353.jpg',
+      'IMG-20260806-WA0354.jpg',
+    ].map(img),
+  },
+  {
+    name: 'New House Builds & Extensions',
+    photos: [
+      'IMG-20260806-WA0355.jpg', 'IMG-20260806-WA0356.jpg',
+      'IMG-20260806-WA0357.jpg', 'IMG-20260806-WA0358.jpg',
+    ].map(img),
+  },
+  {
+    name: 'Floor Tiling',
+    photos: [
+      'IMG-20260806-WA0361.jpg', 'IMG-20260806-WA0362.jpg', 'IMG-20260806-WA0363.jpg',
+      'IMG-20260806-WA0364.jpg', 'IMG-20260806-WA0365.jpg', 'IMG-20260806-WA0366.jpg',
+      'IMG-20260806-WA0367.jpg', 'IMG-20260806-WA0368.jpg', 'IMG-20260806-WA0369.jpg',
+      'IMG-20260806-WA0370.jpg', 'IMG-20260806-WA0371.jpg', 'IMG-20260806-WA0372.jpg',
+      'IMG-20260806-WA0373.jpg', 'IMG-20260806-WA0374.jpg', 'IMG-20260806-WA0375.jpg',
+      'IMG-20260806-WA0376.jpg', 'IMG-20260806-WA0377.jpg', 'IMG-20260806-WA0378.jpg',
+      'IMG-20260806-WA0379.jpg', 'IMG-20260806-WA0380.jpg', 'IMG-20260806-WA0383.jpg',
+      'IMG-20260806-WA0384.jpg', 'IMG-20260806-WA0385.jpg',
+    ].map(img),
+  },
+];
 
 export default function OurWork() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [photoCount, setPhotoCount] = useState<number>(0);
-
-  const categories = [
-    { name: 'Kitchen Floor Tiling', count: 4 },
-    { name: 'Bathroom Tiling', count: 4 },
-    { name: 'Roof Repairs & Installations', count: 4 },
-    { name: 'Interior & Exterior Painting', count: 3 },
-    { name: 'Boundary Wall Construction', count: 2 },
-    { name: 'House Extensions & New Builds', count: 4 },
-    { name: 'PVC Ceiling Installations', count: 3 },
-    { name: 'Plumbing', count: 2 },
-  ];
-
-  const handleOpenGallery = (category: string, count: number) => {
-    setSelectedCategory(category);
-    setPhotoCount(count);
-  };
-
-  const handleCloseGallery = () => setSelectedCategory(null);
+  const [selected, setSelected] = useState<typeof CATEGORIES[0] | null>(null);
 
   const WACta = () => (
     <div className="bg-gray-900 rounded-xl py-8 px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
@@ -63,7 +95,7 @@ export default function OurWork() {
             </h1>
             <div className="w-20 h-1.5 bg-[#F5A200] mb-6 rounded" />
             <p className="text-xl text-gray-500 max-w-3xl font-medium">
-              We let our results do the talking. Browse our completed projects across the Vaal Triangle. Click a category to view the gallery.
+              Real projects. Real results. Browse our completed work across the Vaal Triangle — click any category to view the full gallery.
             </p>
           </div>
         </div>
@@ -74,34 +106,47 @@ export default function OurWork() {
             <WACta />
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {categories.map((cat, index) => (
+          {/* Category grid with preview thumbnails */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {CATEGORIES.map((cat, index) => (
               <motion.button
                 key={cat.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.06 }}
-                onClick={() => handleOpenGallery(cat.name, cat.count)}
-                className="group relative w-full text-left bg-white border-2 border-gray-100 hover:border-[#F5A200] transition-all duration-200 overflow-hidden flex flex-col h-60 rounded-lg shadow-sm hover:shadow-md"
+                transition={{ delay: index * 0.08 }}
+                onClick={() => setSelected(cat)}
+                className="group relative w-full text-left bg-white border-2 border-gray-100 hover:border-[#F5A200] transition-all duration-200 overflow-hidden rounded-xl shadow-sm hover:shadow-lg"
               >
-                <div className="absolute top-0 right-0 w-28 h-28 bg-[#F5A200]/5 rounded-bl-full transition-transform group-hover:scale-150 group-hover:bg-[#F5A200]/10" />
+                {/* Thumbnail strip */}
+                <div className="grid grid-cols-4 gap-0.5 h-44 overflow-hidden">
+                  {cat.photos.slice(0, 4).map((src, i) => (
+                    <div key={i} className="overflow-hidden bg-gray-200">
+                      <img
+                        src={src}
+                        alt=""
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
 
-                <div className="flex-1 p-6 flex flex-col justify-between relative z-10">
+                {/* Label bar */}
+                <div className="px-5 py-4 flex items-center justify-between">
                   <div>
-                    <Camera className="w-7 h-7 text-[#F5A200]/50 mb-3 group-hover:text-[#F5A200] transition-colors" />
-                    <h3 className="text-2xl font-bold uppercase text-gray-900 leading-tight" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Camera className="w-4 h-4 text-[#F5A200]" />
+                      <span className="text-gray-400 text-xs font-bold tracking-widest uppercase">
+                        {cat.photos.length} Photos
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-black uppercase text-gray-900 leading-tight" style={{ fontFamily: 'Oswald, sans-serif' }}>
                       {cat.name}
                     </h3>
                   </div>
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
-                    <span className="text-gray-400 text-sm font-bold tracking-widest uppercase">
-                      {cat.count} Photos
-                    </span>
-                    <span className="text-[#F5A200] font-bold text-sm tracking-widest uppercase flex items-center gap-1 group-hover:translate-x-1.5 transition-transform" style={{ fontFamily: 'Oswald, sans-serif' }}>
-                      View Project <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
+                  <span className="text-[#F5A200] font-bold text-sm tracking-widest uppercase flex items-center gap-1 group-hover:translate-x-1.5 transition-transform" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                    View All <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
               </motion.button>
             ))}
@@ -115,10 +160,10 @@ export default function OurWork() {
       </div>
 
       <GalleryModal
-        isOpen={selectedCategory !== null}
-        onClose={handleCloseGallery}
-        category={selectedCategory || ''}
-        photoCount={photoCount}
+        isOpen={selected !== null}
+        onClose={() => setSelected(null)}
+        category={selected?.name ?? ''}
+        photos={selected?.photos ?? []}
       />
     </Layout>
   );

@@ -11,6 +11,25 @@ import { motion } from 'framer-motion';
 const PHONE_DISPLAY = '074 775 6722';
 const PHONE_HREF = 'tel:+27747756722';
 const WHATSAPP_URL = "https://wa.me/27747756722?text=Hi,%20I'd%20like%20a%20free%20quote";
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const FEATURED_PROJECTS = [
+  {
+    label: 'Project 1',
+    name: 'Custom-Fitted Security',
+    image: `${BASE}/images/project-1-security.jpg`,
+  },
+  {
+    label: 'Project 2',
+    name: 'Modern LED Ceiling',
+    image: `${BASE}/images/project-2-ceiling.jpg`,
+  },
+  {
+    label: 'Project 3',
+    name: 'Plumbing Installation',
+    image: `${BASE}/images/project-3-plumbing.jpg`,
+  },
+];
 
 export default function Home() {
   const services = [
@@ -85,21 +104,27 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* Hero Project Photos Grid */}
+          {/* Featured Project Photos */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {[1, 2, 3].map((i) => (
+            {FEATURED_PROJECTS.map((project, i) => (
               <motion.div
-                key={i}
+                key={project.label}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + i * 0.12 }}
-                className="aspect-[4/3] bg-gray-800 border border-gray-700 flex items-center justify-center relative overflow-hidden rounded"
+                className="aspect-[4/3] bg-gray-800 border border-gray-700 relative overflow-hidden rounded group"
               >
-                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #F5A200 25%, transparent 25%, transparent 75%, #F5A200 75%, #F5A200), repeating-linear-gradient(45deg, #F5A200 25%, #1a1a1a 25%, #1a1a1a 75%, #F5A200 75%, #F5A200)', backgroundPosition: '0 0, 20px 20px', backgroundSize: '40px 40px' }} />
-                <div className="z-10 flex flex-col items-center">
-                  <Hammer className="w-8 h-8 text-[#F5A200]/50 mb-2" />
-                  <span className="font-bold text-lg uppercase tracking-wider text-white/40" style={{ fontFamily: 'Oswald, sans-serif' }}>
-                    Project Photo {i}
+                <img
+                  src={project.image}
+                  alt={`${project.label}: ${project.name}`}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent pt-16 pb-4 px-5">
+                  <span className="block text-[#F5A200] font-bold text-sm uppercase tracking-widest" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                    {project.label}
+                  </span>
+                  <span className="block text-white text-lg font-bold uppercase tracking-wide" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                    {project.name}
                   </span>
                 </div>
               </motion.div>
