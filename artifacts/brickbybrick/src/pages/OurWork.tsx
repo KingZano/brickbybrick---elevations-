@@ -30,8 +30,14 @@ const CATEGORIES: { name: string; photos: string[] }[] = [
     ].map(img),
   },
   {
-    name: 'PVC Ceilings & Ceiling Repairs',
-    photos: [],
+    name: 'Wooden Doors Installation',
+    photos: [
+      'IMG-20260806-WA0323.jpg',
+      'IMG-20260806-WA0325.jpg',
+      'IMG-20260806-WA0329.jpg',
+      'IMG-20260806-WA0333.jpg',
+      'IMG-20260806-WA0339.jpg',
+    ].map(img),
   },
   {
     name: 'New House Builds & Extensions',
