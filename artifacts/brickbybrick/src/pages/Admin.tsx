@@ -7,7 +7,7 @@ interface GalleryImage {
   name: string;
 }
 
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+const BASE = 'https://brickbybrickelevations-api.onrender.com';
 
 export default function Admin() {
   const [pin, setPin] = useState('');
