@@ -75,12 +75,12 @@ router.post(
  * Note: objectPath may contain a "/" (folder prefix), so we accept it as a
  * wildcard param and reconstruct it.
  */
-router.delete('/storage/gallery/*', async (req: Request, res: Response) => {
+router.delete('/storage/gallery/*splat', async (req: Request, res: Response) => {
   if (!isAdminAuthorized(req)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-  const objectPath = (req.params as any)[0];
+  const objectPath = (req.params as any).splat;
   if (!objectPath) {
     res.status(400).json({ error: 'Missing object path' });
     return;
